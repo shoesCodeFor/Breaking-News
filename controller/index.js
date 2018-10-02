@@ -1,5 +1,6 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
+const db = require('../models/connection');
 
 const getDP = ()=>{
     axios.get("https://www.denverpost.com/business/colorado-technology/").then(function(response) {
@@ -32,7 +33,7 @@ const getDP = ()=>{
   });
 };
 
-const cnet = ()=>{
+const cnet = (res = null) => {
   let results = [];
   axios.get("https://www.cnet.com/news/").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
@@ -67,7 +68,23 @@ const cnet = ()=>{
     });
     console.log("**************________***************");
     console.log(results);
-});
+    try{
+      db.scrape(results, res);
+    }
+    catch(e){
+      res.json(e.message);
+    }
+  });
+  
+};
+
+const getNews = (res=null) =>{
+  try{
+    db.getArticles(res);
+  }
+  catch (e){
+    throw e.message;
+  }
 };
 // axios.get("https://www.cnet.com/news/").then(function(response) {
 //     // Then, we load that into cheerio and save it to $ for a shorthand selector
@@ -100,4 +117,8 @@ const cnet = ()=>{
 //     //     });
 //     });
 // });
-cnet();
+// cnet();
+module.exports = {
+  cnet: cnet,
+  getNews: getNews
+};

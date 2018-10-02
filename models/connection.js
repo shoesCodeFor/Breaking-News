@@ -12,7 +12,18 @@ var data = {
     body:"Poopin aint easy", 
   };
 
-  
+const scrape = (articles, res = null) =>{
+    Article.collection.drop();
+    Article.create(articles)
+        .then(function(data) {
+            // If saved successfully, respond with some json
+            res.json(data);
+        })
+        .catch(function(err) {
+            // If an error occurs, log the error message
+            console.log(err.message);
+        });
+}  
 
 const addArticle = article =>{
     Article.create(article)
@@ -26,13 +37,14 @@ const addArticle = article =>{
         });
 };
 
-const getArticles = () => {
+const getArticles = (res = null) => {
     Article.find({}, function (err, data){
         if(err){
             console.log(err.message);
         }
         else{
             console.log(data);
+            res.json(data);
         }    
     });
 };
@@ -62,4 +74,9 @@ const deleteComment = (articleID, commentID, res = null) => {
 };
 // getArticles();
 // updateArticle('5bb193b25a251cb2a653f40b', {body:'A new comment'});
-deleteComment('5bb193b25a251cb2a653f40b', '5bb1acdbb36294420347b4c0');
+// deleteComment('5bb193b25a251cb2a653f40b', '5bb1acdbb36294420347b4c0');
+
+module.exports = {
+    scrape: scrape,
+    getArticles: getArticles
+}
