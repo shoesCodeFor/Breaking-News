@@ -1,6 +1,11 @@
 $( document ).ready(function (){
     $.get('/api/articles', function(data){
-        $('#articles').empty();
+        fillItUp(data);
+    });
+});
+
+const fillItUp = data =>{
+    $('#articles').empty();
         data.forEach(element => {
             console.log(element);
             let story = `
@@ -11,6 +16,11 @@ $( document ).ready(function (){
                 <div class="col s4"><img src="${element.image}"/></div>
             </div>`;
             $('#articles').append(story);    
-        });
     });
-});
+};
+
+const update = () =>{
+    $.get('/api/scrape', function(data){
+        fillItUp(data);
+    });
+};
