@@ -1,3 +1,16 @@
 .brand-logo{
   margin-left: 2vw;
 }
+
+.storyImg{
+  width: 100%;
+  margin-top: 22px;
+}
+
+.saveBtn{
+  margin-top: 50px;
+}
+
+.story{
+  background-color: rgba(100,100,100,0.5);
+}
