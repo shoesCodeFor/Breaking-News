@@ -1,10 +1,17 @@
+/**
+ * Breaking News by Schuyler Ankele
+ * app.js - Client Side Scripts for rendering news stories on page load
+ * These are methods for page interaction with the Express API.
+ * All our GET/POST methods utilize jQuery
+ */
+
 $( document ).ready(function (){
     $.get('/api/articles', function(data){
         fillItUp(data);
     });
 });
 
-const fillItUp = data =>{
+const fillItUp = data => {
     $('#articles').empty();
         data.forEach(element => {
             console.log(element);
