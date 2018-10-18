@@ -12,6 +12,7 @@ var data = {
     body:"Poopin aint easy", 
   };
 
+// Refactor Scrape into a controller method  
 const scrape = (articles, res = null) =>{
     Article.collection.drop();
     Article.create(articles)
@@ -25,6 +26,7 @@ const scrape = (articles, res = null) =>{
         });
 }  
 
+// Move to a controller method
 const addArticle = article =>{
     Article.create(article)
         .then(function(data) {
@@ -37,6 +39,7 @@ const addArticle = article =>{
         });
 };
 
+// Move to a controller method
 const getArticles = (res = null) => {
     Article.find({}, function (err, data){
         if(err){
